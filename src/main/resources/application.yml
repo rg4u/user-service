@@ -1,0 +1,17 @@
+#Used for all profiles
+logging.level:
+  org.framework:  INFO
+spring:
+  profiles:
+    active: dev
+
+# 'dev' profiles only
+---
+spring:
+  profiles: dev
+
+server:
+  port: 8181
+
+
+
