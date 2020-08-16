@@ -1,14 +1,22 @@
 package com.sdonjava.userservice.user;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
+@Validated
 @RestController
 public class UserController {
+
+    Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
@@ -24,36 +32,41 @@ public class UserController {
     }*/
 
     /**
-     *
      * GET user by id
      */
     @GetMapping("/users/{id}")
     public User getUserById(@PathVariable String id) {
+        logger.info("Searched user by id "+ id);
         return userService.getUserById(Long.parseLong(id));
     }
 
     /**
-     *
      * GET select user on the search criteria of surname
      */
     @GetMapping("/users")
-    public List<User> getUserByQueryParam(@RequestParam(name = "surname", required = false) String surname) {
-       if(isBlank(surname))
-       {
-           return userService.getUserBySurName(surname);
-       }
-       else {
-           return userService.getAllUsers();
-       }
+    public List<User> getUserByQueryParam(@RequestParam(name = "surName", required = false) String surname) {
 
+        List<User> userList;
+        /*
+         *  Validate the surname in the Request Param
+         */
+        if (isNotBlank(surname)) {
+            logger.info("Searched user by surName "+ surname);
+            userList = userService.getUserBySurName(surname);
+        } else {
+            userList = userService.getAllUsers();
+        }
+
+        return userList;
     }
 
     /**
-     *
      * POST to add user
      */
     @PostMapping("/users")
-    public void addUser(@RequestBody User user) {
+    @NotEmpty(message = "Input user cannot be empty.")
+    public void addUser(@Valid @RequestBody User user) {
+        logger.info("Add User");
         userService.addUser(user);
 
     }

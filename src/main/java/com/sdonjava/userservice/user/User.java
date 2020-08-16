@@ -1,17 +1,28 @@
 package com.sdonjava.userservice.user;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class User {
 
     @Id
     @GeneratedValue
-    private Long  id;
+    @Column(nullable = false)
+    private Long id;
+    @NotEmpty(message = "First Name can't be empty")
+    @Column(nullable = false)
+    @Basic(optional = false)
     private String firstName;
+    @NotEmpty(message = "Sur Name can't be empty")
+    @Column(nullable = false)
+    @Basic(optional = false)
     private String surName;
+    @NotEmpty(message = "Email can't be empty")
+    @Email(message = "Email should be valid")
+    @Column(nullable = false)
+    @Basic(optional = false)
     private String email;
 
 

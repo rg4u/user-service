@@ -13,25 +13,27 @@ public class UserService {
     private UserRepository userRepository;
 
 
-
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
-            userRepository.findAll()
-                .forEach(users::add);
+        users.addAll(userRepository.findAll());
+            /*userRepository.findAll()
+                .forEach(users::add);*/
         return users;
     }
 
     public User getUserById(long id) {
-       return userRepository.findById(id);
+        return userRepository.findById(id);
     }
 
     public List<User> getUserBySurName(String surName) {
         List<User> users = new ArrayList<>();
-        userRepository.findBySurName(surName).forEach(users::add);
+        users.addAll(userRepository.findBySurNameIgnoreCase(surName));
         return users;
     }
 
     public void addUser(User user) {
         userRepository.save(user);
     }
+
+
 }

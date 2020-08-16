@@ -17,7 +17,7 @@ This is the user service API
     Fetch all users data
 * http://localhost:8181/users/1
     Fetch user detail by ID (which is auto generated)
-* http://localhost:8181/users?surname="Newton"
+* http://localhost:8181/users?surName="Newton"
     Fetch users detail by query param surname.
 
 

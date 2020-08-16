@@ -7,10 +7,10 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     //TODO getUserBySurName()
-    List<User> findBySurName(String surname);
+    List<User> findBySurNameIgnoreCase(String surname);
 
     //TODO getUserById()
-   User findById(long id);
+    User findById(long id);
 
 
 }
