@@ -38,7 +38,7 @@ public class UserController {
      */
     @GetMapping("/users")
     public List<User> getUserByQueryParam(@RequestParam(name = "surname", required = false) String surname) {
-       if(isBlank(surname))
+       if(isNotBlank(surname))
        {
            return userService.getUserBySurName(surname);
        }
